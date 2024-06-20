@@ -1,8 +1,5 @@
-Sure, here is the content for your GitHub repository:
-
----
-
-# UT's Airline Reservation System
+```
+# UT's Airline Reservation System (C-Based):
 
 UT's Airline Reservation System is a console-based application written in C, designed to manage airline reservations. The system allows users to reserve seats, cancel reservations, and display booking records. It uses a linked list to manage bookings and ensures data persistence by saving records to a file.
 
@@ -145,3 +142,6 @@ int main() {
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a pull request or open an issue with any suggestions or improvements.
+```
+
+This Markdown document provides a structured overview of your Airline Reservation System repository, including installation instructions, usage guidelines, code overview, and contribution details. Adjust the GitHub repository link (`https://github.com/yourusername/AirlineReservationSystem.git`) to your actual repository URL when publishing.
