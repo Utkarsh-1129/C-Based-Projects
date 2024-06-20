@@ -1,4 +1,4 @@
-```
+
 # UT's Airline Reservation System (C-Based):
 
 UT's Airline Reservation System is a console-based application written in C, designed to manage airline reservations. The system allows users to reserve seats, cancel reservations, and display booking records. It uses a linked list to manage bookings and ensures data persistence by saving records to a file.
