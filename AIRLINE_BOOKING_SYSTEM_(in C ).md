@@ -113,6 +113,9 @@ struct book *begin = NULL;
 int seat_number = 1;
 
 void getInput(struct book *current) {
+    printf("\n\t====================================================\n");
+    printf("\t||>>>      UT's Airline Reservation System     <<<||\n");
+    printf("\t====================================================\n\n");
     printf("Enter Passport Number: ");
     scanf("%s", current->passport);
     printf("Enter Name: ");
@@ -139,10 +142,12 @@ void reserve() {
 void display() {
     struct book *temp = begin;
     if (!temp) {
-        printf("No reservations found.\n");
+        printf("\nNo reservations found.\n");
         return;
     }
-    printf("\nCurrent Reservations:\n");
+    printf("\n\t====================================================\n");
+    printf("\t||>>>        Current Reservations           <<<||\n");
+    printf("\t====================================================\n");
     while (temp) {
         printf("\nName: %s, Passport: %s, From: %s, To: %s, Date: %s, Seat No: %d, Email: %s\n",
                temp->name, temp->passport, temp->departure, temp->destination, temp->depart_Date, temp->seat_num, temp->email);
@@ -190,9 +195,15 @@ void saveToFile() {
 int main() {
     int choice;
     do {
-        printf("\n\tUT's Airline Reservation System\n");
-        printf("1. RESERVATION\n2. CANCEL\n3. DISPLAY RECORDS\n4. EXIT\n");
-        printf("Enter your choice: ");
+        printf("\n\t====================================================\n");
+        printf("\t||>>>        UT's Airline Reservation System       <<<||\n");
+        printf("\t====================================================\n");
+        printf("\n\t Please enter your choice from [1 to 4] below:\n");
+        printf("\n\t 1. RESERVATION\n");
+        printf("\t 2. CANCEL\n");
+        printf("\t 3. DISPLAY RECORDS\n");
+        printf("\t 4. EXIT\n");
+        printf("\n\t Enter your choice: ");
         scanf("%d", &choice);
 
         switch (choice) {
@@ -210,11 +221,13 @@ int main() {
                 printf("Exiting...\n");
                 break;
             default:
-                printf("Invalid Choice!\n");
+                printf("\n\t SORRY INVALID CHOICE!\n");
+                printf("\t PLEASE CHOOSE FROM 1-4\n");
         }
     } while (choice != 4);
     return 0;
 }
+
 
 ```
 
