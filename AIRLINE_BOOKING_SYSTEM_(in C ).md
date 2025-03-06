@@ -143,5 +143,3 @@ int main() {
 
 Contributions are welcome! Please feel free to submit a pull request or open an issue with any suggestions or improvements.
 ```
-
-This Markdown document provides a structured overview of your Airline Reservation System repository, including installation instructions, usage guidelines, code overview, and contribution details. Adjust the GitHub repository link (`https://github.com/yourusername/AirlineReservationSystem.git`) to your actual repository URL when publishing.
