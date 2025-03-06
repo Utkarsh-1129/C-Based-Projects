@@ -93,50 +93,129 @@ Saves the reservation records to a file.
 The main function provides a menu for users to choose between reservation, cancellation, displaying records, and exiting the program.
 
 ```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <windows.h>
+
+struct book {
+    char passport[10];
+    char name[20];
+    char departure[15];
+    char destination[15];
+    char depart_Date[11];
+    int seat_num;
+    char email[30];
+    struct book *following;
+};
+
+struct book *begin = NULL;
+int seat_number = 1;
+
+void getInput(struct book *current) {
+    printf("Enter Passport Number: ");
+    scanf("%s", current->passport);
+    printf("Enter Name: ");
+    scanf("%s", current->name);
+    printf("Enter Departure Location: ");
+    scanf("%s", current->departure);
+    printf("Enter Destination: ");
+    scanf("%s", current->destination);
+    printf("Enter Departure Date (YYYY-MM-DD): ");
+    scanf("%s", current->depart_Date);
+    printf("Enter Email: ");
+    scanf("%s", current->email);
+    current->seat_num = seat_number++;
+}
+
+void reserve() {
+    struct book *newNode = (struct book *)malloc(sizeof(struct book));
+    getInput(newNode);
+    newNode->following = begin;
+    begin = newNode;
+    printf("\nReservation Successful! Your Seat Number is: %d\n", newNode->seat_num);
+}
+
+void display() {
+    struct book *temp = begin;
+    if (!temp) {
+        printf("No reservations found.\n");
+        return;
+    }
+    printf("\nCurrent Reservations:\n");
+    while (temp) {
+        printf("\nName: %s, Passport: %s, From: %s, To: %s, Date: %s, Seat No: %d, Email: %s\n",
+               temp->name, temp->passport, temp->departure, temp->destination, temp->depart_Date, temp->seat_num, temp->email);
+        temp = temp->following;
+    }
+}
+
+void cancel() {
+    char pass[10];
+    printf("Enter Passport Number to Cancel: ");
+    scanf("%s", pass);
+    struct book *temp = begin, *prev = NULL;
+    while (temp) {
+        if (strcmp(temp->passport, pass) == 0) {
+            if (prev) {
+                prev->following = temp->following;
+            } else {
+                begin = temp->following;
+            }
+            free(temp);
+            printf("\nReservation Cancelled Successfully.\n");
+            return;
+        }
+        prev = temp;
+        temp = temp->following;
+    }
+    printf("\nNo matching reservation found.\n");
+}
+
+void saveToFile() {
+    FILE *fp = fopen("reservations.txt", "w");
+    if (!fp) {
+        printf("\nError saving reservations!\n");
+        return;
+    }
+    struct book *temp = begin;
+    while (temp) {
+        fprintf(fp, "%s %s %s %s %s %d %s\n", temp->passport, temp->name, temp->departure, temp->destination, temp->depart_Date, temp->seat_num, temp->email);
+        temp = temp->following;
+    }
+    fclose(fp);
+    printf("\nReservations Saved Successfully!\n");
+}
+
 int main() {
     int choice;
-    int num = 1;
-
     do {
-        // Display menu
-        printf("\n\t\t\t\t   ================================================================");
-        printf("\n\t\t\t\t   ||>>>            WELCOME TO UT's AIRLINE SYSTEM            <<<||");
-        printf("\n\t\t\t\t   ================================================================");
-        printf("\n\n\t\t Please enter your choice from [1 to 4] below:");
-        printf("\n\n\t\t 1. RESERVATION");
-        printf("\n\t\t 2. CANCEL");
-        printf("\n\t\t 3. DISPLAY RECORDS");
-        printf("\n\t\t 4. EXIT");
-        printf("\n\n\t\t Enter your choice: ");
+        printf("\n\tUT's Airline Reservation System\n");
+        printf("1. RESERVATION\n2. CANCEL\n3. DISPLAY RECORDS\n4. EXIT\n");
+        printf("Enter your choice: ");
         scanf("%d", &choice);
-        fflush(stdin);
 
         switch (choice) {
             case 1:
-                reserve(num);
-                num++;
+                reserve();
                 break;
-
             case 2:
                 cancel();
                 break;
-
             case 3:
                 display();
                 break;
-
             case 4:
                 saveToFile();
+                printf("Exiting...\n");
                 break;
-
             default:
-                printf("\n\n\t\t SORRY INVALID CHOICE!");
-                printf("\n\t\t PLEASE CHOOSE FROM 1-4");
+                printf("Invalid Choice!\n");
         }
     } while (choice != 4);
-
     return 0;
 }
+
 ```
 
 ## Contributing
